@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LeadFlow - Mini CRM</title>
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fa-solid fa-chart-line"></i> LeadFlow</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="active"><i class="fa-solid fa-users"></i> Leads</a>
+                <a href="notes.html"><i class="fa-solid fa-book-open"></i> Notes</a>
+                <a href="#"><i class="fa-solid fa-chart-pie"></i> Analytics</a>
+                <a href="#"><i class="fa-solid fa-cog"></i> Settings</a>
+                <a href="index.html" style="margin-top: auto;"><i class="fa-solid fa-sign-out-alt"></i> Logout</a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-header">
+                <div class="header-title">
+                    <h1>Lead Management</h1>
+                    <p>Manage and track your client pipeline</p>
+                </div>
+                <button id="addLeadBtn" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Add New Lead</button>
+            </header>
+
+            <!-- Dashboard Controls -->
+            <section class="dashboard-controls">
+                <div class="search-box">
+                    <i class="fa-solid fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="Search leads by name or email...">
+                </div>
+                <div class="filter-box">
+                    <select id="statusFilter">
+                        <option value="All">All Statuses</option>
+                        <option value="New">New</option>
+                        <option value="Contacted">Contacted</option>
+                        <option value="Converted">Converted</option>
+                    </select>
+                </div>
+            </section>
+
+            <!-- Stats Overview -->
+            <section class="stats-overview">
+                <div class="stat-card">
+                    <div class="stat-icon new"><i class="fa-solid fa-inbox"></i></div>
+                    <div class="stat-info">
+                        <h3>New Leads</h3>
+                        <p id="statNew">0</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon contacted"><i class="fa-solid fa-phone"></i></div>
+                    <div class="stat-info">
+                        <h3>Contacted</h3>
+                        <p id="statContacted">0</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon converted"><i class="fa-solid fa-check-circle"></i></div>
+                    <div class="stat-info">
+                        <h3>Converted</h3>
+                        <p id="statConverted">0</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Leads Table -->
+            <section class="leads-section">
+                <div class="table-container">
+                    <table id="leadsTable">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Contact</th>
+                                <th>Source</th>
+                                <th>Status</th>
+                                <th>Follow-up</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="leadsTableBody">
+                            <!-- Rows will be dynamically loaded here -->
+                        </tbody>
+                    </table>
+                    <div id="noDataMessage" class="no-data hidden">
+                        <i class="fa-solid fa-folder-open empty-icon"></i>
+                        <p>No leads found. Add a new lead to get started.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Lead Modal (Add/Edit) -->
+    <div id="leadModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Add New Lead</h2>
+                <button class="close-btn" id="closeModalBtn">&times;</button>
+            </div>
+            <form id="leadForm">
+                <input type="hidden" id="leadId">
+                <div class="form-group">
+                    <label for="leadName">Full Name</label>
+                    <input type="text" id="leadName" required placeholder="e.g. John Doe">
+                </div>
+                <div class="form-group">
+                    <label for="leadEmail">Email Address</label>
+                    <input type="email" id="leadEmail" required placeholder="e.g. john@example.com">
+                </div>
+                <div class="form-row">
+                    <div class="form-group half">
+                        <label for="leadSource">Source</label>
+                        <select id="leadSource" required>
+                            <option value="Website">Website</option>
+                            <option value="Instagram">Instagram</option>
+                            <option value="Referral">Referral</option>
+                            <option value="LinkedIn">LinkedIn</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group half">
+                        <label for="leadStatus">Status</label>
+                        <select id="leadStatus" required>
+                            <option value="New">New</option>
+                            <option value="Contacted">Contacted</option>
+                            <option value="Converted">Converted</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="leadFollowup">Follow-up Date</label>
+                    <input type="date" id="leadFollowup">
+                </div>
+                <div class="form-group">
+                    <label for="leadNotes">Notes (Optional)</label>
+                    <textarea id="leadNotes" rows="3" placeholder="Add any relevant notes or follow-up details..."></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="cancelModalBtn">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="saveLeadBtn">Save Lead</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- View Notes Modal -->
+    <div id="notesModal" class="modal">
+        <div class="modal-content notes-content">
+            <div class="modal-header">
+                <h2>Lead Notes</h2>
+                <button class="close-btn" id="closeNotesBtn">&times;</button>
+            </div>
+            <div class="notes-body" id="notesBody">
+                <!-- Notes injected here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes - LeadFlow</title>
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fa-solid fa-chart-line"></i> LeadFlow</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="dashboard.html"><i class="fa-solid fa-users"></i> Leads</a>
+                <a href="notes.html" class="active"><i class="fa-solid fa-book-open"></i> Notes</a>
+                <a href="#"><i class="fa-solid fa-chart-pie"></i> Analytics</a>
+                <a href="#"><i class="fa-solid fa-cog"></i> Settings</a>
+                <a href="index.html" style="margin-top: auto;"><i class="fa-solid fa-sign-out-alt"></i> Logout</a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-header">
+                <div class="header-title">
+                    <h1>My Notes</h1>
+                    <p>Jot down ideas, to-dos, and quick reminders</p>
+                </div>
+                <button id="addNoteBtn" class="btn btn-primary"><i class="fa-solid fa-plus"></i> New Note</button>
+            </header>
+
+            <section class="notes-grid" id="notesGrid">
+                <!-- Notes will be loaded here dynamically -->
+            </section>
+            <div id="noNotesMessage" class="no-data hidden">
+                <i class="fa-solid fa-file-pen empty-icon"></i>
+                <p>You haven't created any notes yet.</p>
+            </div>
+        </main>
+    </div>
+
+    <!-- Note Modal -->
+    <div id="quickNoteModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="noteModalTitle">Add New Note</h2>
+                <button class="close-btn" id="closeNoteModalBtn">&times;</button>
+            </div>
+            <form id="noteForm">
+                <input type="hidden" id="noteId">
+                <div class="form-group">
+                    <label for="noteTitle">Title</label>
+                    <input type="text" id="noteTitle" required placeholder="Note Title">
+                </div>
+                <div class="form-group">
+                    <label for="noteContent">Content</label>
+                    <textarea id="noteContent" rows="6" required placeholder="Write your note here..."></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="cancelNoteBtn">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Note</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="notes.js"></script>
+</body>
+</html>
